@@ -113,6 +113,24 @@
   
   add t0, zero, zero
   
+  forSwap:
+  	bge t0, s11, endForSwap
+			slli t1, t0, 2
+			
+			add s9, s6, t1
+			lw a0, 0(s9)
+			
+			add s3, zero, a0
+			add s9, s4, t1
+			sw s3, 0(s9)
+				
+			addi t0, t0, 1
+			
+			jal forSwap
+  endForSwap:
+  
+  add t0, zero, zero
+  
   addi a7, zero, 4
 	la a0, vetoresTrocados
 	ecall
