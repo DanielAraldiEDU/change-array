@@ -11,6 +11,8 @@
 	Vetor_B: .word 0, 0, 0, 0, 0, 0, 0, 0
 	vetorBMensagem: .asciz "Vetor B["
 	
+	VetorAuxiliar: .word 0, 0, 0, 0, 0, 0, 0, 0
+	
 .text
 
   addi a7, zero, 4
@@ -29,7 +31,7 @@
 	  jal endDigitoInvalido
     
     digitoInvalido:
-    		addi a7, zero, 4
+    	addi a7, zero, 4
 	    la a0, tamanhoInvalido
 	    ecall
 	    
@@ -37,15 +39,16 @@
     endDigitoInvalido:
     
   		blt s11, t5, digitoInvalido
-	  bge s11, t6, digitoInvalido
+	  	bge s11, t6, digitoInvalido
   endVerificador:
   
   la s1, Vetor_A
+  la s6, VetorAuxiliar
   
   add t0, zero, zero
   
   forA:
-  		bge t0, s11, endForA
+  	bge t0, s11, endForA
 			addi a7, zero, 4
 			la a0, vetorAMensagem
 			ecall
@@ -65,6 +68,8 @@
 			slli t1, t0, 2
 			add s2, s1, t1
 			sw s0, 0(s2)
+			add s2, s6, t1
+			sw s0, 0(s2)
 				
 			addi t0, t0, 1
 			
@@ -76,7 +81,7 @@
   add t0, zero, zero
   
   forB:
-  		bge t0, s11, endForB
+  	bge t0, s11, endForB
 			addi a7, zero, 4
 			la a0, vetorBMensagem
 			ecall
@@ -101,3 +106,32 @@
 			
 			jal forB
   endForB:
+  
+  add t0, zero, zero
+	
+	# this for logic is incorrect
+	showFor: 
+		bge t0, s11, endShowFor
+			addi a7, zero, 4
+			la a0, vetorAMensagem
+			ecall
+			
+			addi a7, zero, 1
+			add a0, zero, t0
+			ecall 
+			
+			addi a7, zero, 4
+			la a0, finalVetorMensagem
+			ecall
+			
+			slli t1, t0, 2
+			add s8, s6, t1
+			lw a0, 0(s8)
+			
+			addi a7, zero, 1
+			ecall 
+			
+			addi t0, t0, 1
+		
+			jal showFor
+	endShowFor:
