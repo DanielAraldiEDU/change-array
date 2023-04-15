@@ -2,7 +2,9 @@
 	
 	anunciado: .asciz "Entre com o tamanho dos vetores (máx. = 8 e mín. = 2): "
 	tamanhoInvalido: .asciz "Valor inválido, digite novamente: "
+	vetoresTrocados: .asciz "\nVetor A e B trocados:"
 	
+	quebraLinha: .asciz "\n"
 	finalVetorMensagem: .asciz "] = "
 	
 	Vetor_A: .word 0, 0, 0, 0, 0, 0, 0, 0
@@ -110,9 +112,17 @@
   endForB:
   
   add t0, zero, zero
+  
+  addi a7, zero, 4
+	la a0, vetoresTrocados
+	ecall
 	
-	showFor: 
-		bge t0, s11, endShowFor
+	showForA: 
+		bge t0, s11, endShowForA
+			addi a7, zero, 4
+			la a0, quebraLinha
+			ecall
+			
 			addi a7, zero, 4
 			la a0, vetorAMensagem
 			ecall
@@ -126,7 +136,7 @@
 			ecall
 			
 			slli t1, t0, 2
-			add s8, s6, t1
+			add s8, s1, t1
 			lw a0, 0(s8)
 			
 			addi a7, zero, 1
@@ -134,5 +144,37 @@
 			
 			addi t0, t0, 1
 		
-			jal showFor
-	endShowFor:
+			jal showForA
+	endShowForA:
+	
+	add t0, zero, zero
+	
+	showForB: 
+		bge t0, s11, endShowForB
+			addi a7, zero, 4
+			la a0, quebraLinha
+			ecall
+			
+			addi a7, zero, 4
+			la a0, vetorBMensagem
+			ecall
+			
+			addi a7, zero, 1
+			add a0, zero, t0
+			ecall 
+			
+			addi a7, zero, 4
+			la a0, finalVetorMensagem
+			ecall
+			
+			slli t1, t0, 2
+			add s8, s4, t1
+			lw a0, 0(s8)
+			
+			addi a7, zero, 1
+			ecall 
+			
+			addi t0, t0, 1
+		
+			jal showForB
+	endShowForB:
