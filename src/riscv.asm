@@ -101,6 +101,8 @@
 			slli t1, t0, 2
 			add s5, s4, t1
 			sw s3, 0(s5)
+			add s5, s1, t1
+			sw s3, 0(s5)
 				
 			addi t0, t0, 1
 			
@@ -109,7 +111,6 @@
   
   add t0, zero, zero
 	
-	# this for logic is incorrect
 	showFor: 
 		bge t0, s11, endShowFor
 			addi a7, zero, 4
