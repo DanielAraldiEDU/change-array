@@ -1,7 +1,7 @@
 .data
 	
 	anunciado: .asciz "Entre com o tamanho dos vetores (máx. = 8 e mín. = 2): "
-	tamanhoInvalido: .ascii "Valor inválido, Digite novamente!\n"
+	tamanhoInvalido: .ascii "Valor inválido, digite novamente: "
 	Vetor_A: .word 0, 0, 0, 0, 0, 0, 0, 0
 	Vetor_B: .word 0, 0, 0, 0, 0, 0, 0, 0
 	
