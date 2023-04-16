@@ -17,72 +17,72 @@
 	
 .text
 	
-	#imprime Entre com o tamanho dos vetores (máx. = 8 e mín. = 2): (possível mudança)
+	# Imprime "Entre com o tamanho dos vetores (máx. = 8 e mín. = 2): ".
   addi a7, zero, 4
   la a0, anunciado 
   ecall
   
-  #adicionando a t5 e t6 valores relacionados as condicionais (possível mudança)
+  # Adicionando a t5 e t6 valores relacionados as condicionais.
   addi t5, zero, 2 
   addi t6, zero, 9
   
-  # Verifica se o input é valido
+  # Verifica e pergunta ao usuário sobre o dígito que ele informou.
   verificador:
 	  addi a7, zero, 5
 	  ecall
 	  
 	  add s11, zero, a0
 	  
-	  jal endDigitoInvalido
+	  jal endDigitoInvalido # Pula para a label endDigitoInvalido.
     
     digitoInvalido:
-    	# imprime Valor inválido, digite novamente: (possível mudança)
+    	# Imprime "Valor inválido, digite novamente: ", caso o dígito informado seja inválido.
     	addi a7, zero, 4
 	    la a0, tamanhoInvalido
 	    ecall
 	    
 	    jal verificador
     endDigitoInvalido:
-    	# vai para digitoInvalido se o input for menor que 2 ou maior que 8.
+    	# Pula para a label de digitoInvalido se o valor informado é menor que 2 ou maior e igual a 9.
   		blt s11, t5, digitoInvalido
 	  	bge s11, t6, digitoInvalido
 	  	
   endVerificador:
   
-  la s1, Vetor_A # endereço base do Vetor_A
-  la s6, VetorAuxiliar # endereço base do VetorAuxiliar
+  la s1, Vetor_A # Endereço base do Vetor_A.
+  la s6, VetorAuxiliar # Endereço base do VetorAuxiliar.
   
-  add t0, zero, zero # i=0
+  add t0, zero, zero # i (t0) = 0
   
-  # Loop for para iterar nos indices do Vetor_A
+  # Loop for para iterar nos índices do Vetor_A.
   forA:
-  	bge t0, s11, endForA # vai para o label endForA se i >= (valor inserido)
+  	bge t0, s11, endForA # Vai para o label endForA se i >= valor de s11 informado no bloco verificador
   		
-  		# imprime Vetor A[ 
+  		# Imprime "Vetor A["
 			addi a7, zero, 4
 			la a0, vetorAMensagem
 			ecall
 			
-			# imprime o indice
+			# Imprime o índice.
 			addi a7, zero, 1
 			add a0, zero, t0
 			ecall 
 			
-			# imprime ] = 
+			# Imprime "] = ".
 			addi a7, zero, 4
 			la a0, finalVetorMensagem
 			ecall
 			
-			# Lê o input do usuário e armazena em s0
+			# Lê o valor inserido pelo usuário e armazena em s0.
 			addi a7, zero, 5
 			ecall
 			add s0, zero, a0
 			
-			# armazena no vetor_A e no VetorAuxiliar
-			slli t1, t0, 2 #t1 = 4*i
-			add s2, s1, t1 #s2 = base(s1) + deslocamento(t1)
+			# Armazena no Vetor_A e no VetorAuxiliar.
+			slli t1, t0, 2 # t1 = 4 * i.
+			add s2, s1, t1 # s2 = base(s1) + deslocamento(t1).
 			sw s0, 0(s2) 
-			add s2, s6, t1 #s2 = base(s6) + deslocamento(t1)
+			add s2, s6, t1 # s2 = base(s6) + deslocamento(t1).
 			sw s0, 0(s2) 
 				
 			addi t0, t0, 1 # i++
@@ -90,39 +90,39 @@
 			jal forA
   endForA:
   
-  la s4, Vetor_B # endereço base do Vetor_B
+  la s4, Vetor_B # Endereço base do Vetor_B.
   
-  add t0, zero, zero # i=0
+  add t0, zero, zero # i = 0
   
-  # Loop for para iterar nos indices do Vetor_B
+  # Loop for para iterar nos índices do Vetor_B.
   forB:
-  	bge t0, s11, endForB # vai para o label endForB se i >= (valor inserido)
-  		# imprime Vetor B[ 
+  	bge t0, s11, endForB # Vai para o label endForB se i >= valor de s11 informado no bloco verificador
+  		# Imprime "Vetor B[".
 			addi a7, zero, 4
 			la a0, vetorBMensagem
 			ecall
 			
-			# imprime o indice
+			# Imprime o índice.
 			addi a7, zero, 1
 			add a0, zero, t0
 			ecall 
 			
-			# imprime ] = 
+			# Imprime "] = ".
 			addi a7, zero, 4
 			la a0, finalVetorMensagem
 			ecall
 			
-			# Lê o input do usuário e armazena em s3
+			# Lê o valor inserido pelo usuário e armazena em s3.
 			addi a7, zero, 5
 			ecall
 			add s3, zero, a0
 			
-			# armazena no vetor_A e no Vetor_B
-			slli t1, t0, 2 #t1 = 4*i
-			add s5, s4, t1 #s5 = base(s4) + deslocamento(t1)
-			sw s3, 0(s5) 
-			add s5, s1, t1
-			sw s3, 0(s5) # armazena no vetor_A o valor do Vetor_B
+			# Armazena no vetor_A e no Vetor_B.
+			slli t1, t0, 2 # t1 = 4 * i
+			add s2, s4, t1 # s2 = base(s4) + deslocamento(t1).
+			sw s3, 0(s2) 
+			add s2, s1, t1
+			sw s3, 0(s2) # Armazena no vetor_A o valor do Vetor_B.
 				
 			addi t0, t0, 1 # i++
 			
@@ -131,35 +131,35 @@
   
   add t0, zero, zero
   
-  # Loop for fazer o swap VetorB = VetorAuxiliar
+  # Loop for fazer o troca dos valores do Vetor_B para VetorAuxiliar (Vetor_B = VetorAuxiliar).
   forSwap:
-  	bge t0, s11, endForSwap # vai para o label endForSwap se i >= (valor inserido)
-			slli t1, t0, 2 #t1 = 4*i
+  	bge t0, s11, endForSwap # Vai para o label endForSwap se i >= valor de s11 informado no bloco verificador
+			slli t1, t0, 2 # t1 = 4 * i
 			
-			# salva o valor do VetorAuxiliar[i] em a0
-			add s9, s6, t1 
-			lw a0, 0(s9)
+			# Salva o valor do VetorAuxiliar[i] em a0.
+			add s2, s6, t1 
+			lw a0, 0(s2)
 			
-			# passa o valor de a0 para s3
+			# Passa o valor de a0 para s3.
 			add s3, zero, a0
 			
-			# passa o valor de s3 para o Vetor_B[i]
-			add s9, s4, t1
-			sw s3, 0(s9)
+			# Passa o valor de s3 para o Vetor_B[i].
+			add s2, s4, t1
+			sw s3, 0(s2)
 				
 			addi t0, t0, 1 # i++
 			
 			jal forSwap
   endForSwap:
   
-  add t0, zero, zero # i=0
+  add t0, zero, zero # i = 0
   
-  # imprime texto
+  # Imprime o texto de "\nVetor A e B trocados:".
   addi a7, zero, 4
 	la a0, vetoresTrocados
 	ecall
 	
-	# imprime o Vetor_A
+	# Imprime os valores do respectivos índices do Vetor_A.
 	showForA: 
 		bge t0, s11, endShowForA
 			addi a7, zero, 4
@@ -179,8 +179,8 @@
 			ecall
 			
 			slli t1, t0, 2
-			add s8, s1, t1
-			lw a0, 0(s8)
+			add s2, s1, t1
+			lw a0, 0(s2) # Mostra o valor do índice do Vetor_A.
 			
 			addi a7, zero, 1
 			ecall 
@@ -192,7 +192,7 @@
 	
 	add t0, zero, zero # i=0
 	
-	# imprime o Vetor_B 
+	# Imprime os valores dos respectivos índices do Vetor_B.
 	showForB: 
 		bge t0, s11, endShowForB
 			addi a7, zero, 4
@@ -212,8 +212,8 @@
 			ecall
 			
 			slli t1, t0, 2
-			add s8, s4, t1
-			lw a0, 0(s8)
+			add s2, s4, t1
+			lw a0, 0(s2) # Mostra o valor do índice do Vetor_B.
 			
 			addi a7, zero, 1
 			ecall 
@@ -222,4 +222,3 @@
 		
 			jal showForB
 	endShowForB:
-	
