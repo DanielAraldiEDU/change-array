@@ -1,3 +1,9 @@
+# Disciplina: Arquitetura e Organizacao de Computadores
+# Atividade: Avaliacao 01  Programacao em Linguagem de Montagem
+# Programa 01
+# Grupo: - Daniel Sansao Araldi
+# - Rafael Mota Alves
+
 .data
 	
 	anunciado: .asciz "Entre com o tamanho dos vetores (máx. = 8 e mín. = 2): "
@@ -17,7 +23,7 @@
 	
 .text
 	
-	#imprime Entre com o tamanho dos vetores (máx. = 8 e mín. = 2): (possível mudança)
+	#imprime Entre com o tamanho dos vetores (max. = 8 e min. = 2): (possível mudança)
   addi a7, zero, 4
   la a0, anunciado 
   ecall
